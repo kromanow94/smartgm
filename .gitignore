@@ -1,0 +1,7 @@
+# don't follow .idea files
+.idea*
+
+# dont follow therecipe/qt builds
+
+deploy
+linux
