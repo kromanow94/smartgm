@@ -1,25 +1,25 @@
 package main
 
 import (
-    "os"
+	"os"
 
-    "github.com/therecipe/qt/widgets"
- )
+	"github.com/therecipe/qt/widgets"
+)
 
 func main() {
 
-    // Create application
-    app := widgets.NewQApplication(len(os.Args), os.Args)
+	// Create application
+	app := widgets.NewQApplication(len(os.Args), os.Args)
 
-    // Create main window
-    window := widgets.NewQMainWindow(nil, 0)
-    window.SetWindowTitle("Smart Game Master")
-    window.SetMinimumSize2(800, 600)
+	// Create main window
+	window := widgets.NewQMainWindow(nil, 0)
+	window.SetWindowTitle("Smart Game Master")
+	window.SetMinimumSize2(800, 600)
 
-    // Create main window layout
-    layout := widgets.NewQVBoxLayout()
+	// Create main window layout
+	layout := widgets.NewQVBoxLayout()
 
-    // Create main widget and set the layout
+	// Create main widget and set the layout
 	mainWidget := widgets.NewQWidget(nil, 0)
 	mainWidget.SetLayout(layout)
 
@@ -29,7 +29,8 @@ func main() {
 	//tabWidget.SetSizePolicy(widgets.NewQSizePolicy2())
 
 	// Create CombatEncounter tab
-	combatEncounterTab := NewCombatEncounterTab(nil, 0)
+	//combatEncounterTab := NewCombatEncounterTab(nil, 0)
+	combatEncounterTab := NewCharacterWidget(nil, 0)
 	tabWidget.AddTab(combatEncounterTab, "Combat Encounter")
 
 	// Create just some list tab
@@ -38,7 +39,6 @@ func main() {
 	tabWidget.AddTab(someList, "Some list")
 
 	layout.AddWidget(tabWidget, 0, 0)
-
 
 	//// Create a line edit and add it to the layout
 	//input := widgets.NewQLineEdit(nil)
@@ -57,12 +57,10 @@ func main() {
 	// Set main widget as the central widget of the window
 	window.SetCentralWidget(mainWidget)
 
-
 	// Show the window
 	window.Show()
 
-
 	// Execute app
-    app.Exec()
+	app.Exec()
 
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/widgets"
 )
 
@@ -9,24 +10,41 @@ type CombatEncounterTab struct {
 
 	_ func() `constructor:"init"`
 
+	characterList       core.QList
+	characterListWidget *widgets.QListWidget
+
 	layout *widgets.QVBoxLayout
 }
 
 func (t *CombatEncounterTab) init() {
 	t.layout = widgets.NewQVBoxLayout()
 
+	// Character list widget
+	t.characterListWidget = widgets.NewQListWidget(nil)
+	t.characterListWidget.AddItem("Param")
+
 	// Character list
-	characterList := widgets.NewQListWidget(nil)
-	characterList.AddItem("Param")
+	//core.QList
 
 	// Character layout
 	characterLayout := widgets.NewQVBoxLayout()
-	characterLayout.AddWidget(characterList, 0, 0)
+	characterLayout.AddWidget(t.characterListWidget, 0, 0)
+
+	///////////////////////////////////////////////////////////////////////////
+
+	//characterListWidget.Connect
+
+	// Character view
+	//characterView := widgets.Model
+
+	// Character layout
+	//characterLayout := widgets.NewQVBoxLayout()
+	//characterLayout.AddWidget(characterListWidget, 0, 0)
 
 	// Character button
 	addCharacterButton := widgets.NewQPushButton2("Add Character", nil)
 	addCharacterButton.ConnectClicked(func(checked bool) {
-		characterList.AddItem("clicked heee")
+		t.characterListWidget.AddItem("clicked heee")
 	})
 
 	// Dice button
