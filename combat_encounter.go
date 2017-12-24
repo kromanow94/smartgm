@@ -7,28 +7,38 @@ import (
 
 type CombatEncounterTab struct {
 	widgets.QWidget
+	characterList       core.QList
+	characterListWidget *CharacterWidget
+	//characterListWidget *widgets.QListWidget
+	layout              *widgets.QVBoxLayout
 
 	_ func() `constructor:"init"`
-
-	characterList       core.QList
-	characterListWidget *widgets.QListWidget
-
-	layout *widgets.QVBoxLayout
 }
 
 func (t *CombatEncounterTab) init() {
 	t.layout = widgets.NewQVBoxLayout()
 
-	// Character list widget
-	t.characterListWidget = widgets.NewQListWidget(nil)
-	t.characterListWidget.AddItem("Param")
 
-	// Character list
-	//core.QList
+	// Character list widget
+	t.characterListWidget = NewCharacterWidget(nil, 0)
+	//t.characterListWidget = widgets.NewQListWidget(nil)
+	//t.characterListWidget.AddItem("Param")
+	asd := make([][]string, 2)
+
+	asd[0] = make([]string, 2)
+	asd[1] = make([]string, 2)
+
+	asd[0][0] = "tuti 00"
+	asd[0][1] = "tuti 01"
+	asd[1][0] = "tuti 10"
+	asd[1][1] = "tuti 11"
+
+	t.characterListWidget.AddCharacter("Och", asd)
+
 
 	// Character layout
-	characterLayout := widgets.NewQVBoxLayout()
-	characterLayout.AddWidget(t.characterListWidget, 0, 0)
+	//characterLayout := widgets.NewQVBoxLayout()
+	//characterLayout.AddWidget(t.characterListWidget, 0, 0)
 
 	///////////////////////////////////////////////////////////////////////////
 
@@ -44,7 +54,8 @@ func (t *CombatEncounterTab) init() {
 	// Character button
 	addCharacterButton := widgets.NewQPushButton2("Add Character", nil)
 	addCharacterButton.ConnectClicked(func(checked bool) {
-		t.characterListWidget.AddItem("clicked heee")
+		//t.characterListWidget.AddItem("clicked heee")
+		t.characterListWidget.AddCharacter("Clicked", asd)
 	})
 
 	// Dice button
@@ -60,7 +71,7 @@ func (t *CombatEncounterTab) init() {
 	buttonLayout.AddWidget(rollDiceButton, 0, 0)
 
 	// Add layouts to CombatEncounterTab
-	t.layout.AddLayout(characterLayout, 0)
+	t.layout.AddWidget(t.characterListWidget, 0, 0)
 	t.layout.AddLayout(buttonLayout, 0)
 
 	t.SetLayout(t.layout)

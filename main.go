@@ -29,8 +29,8 @@ func main() {
 	//tabWidget.SetSizePolicy(widgets.NewQSizePolicy2())
 
 	// Create CombatEncounter tab
-	//combatEncounterTab := NewCombatEncounterTab(nil, 0)
-	combatEncounterTab := NewCharacterWidget(nil, 0)
+	combatEncounterTab := NewCombatEncounterTab(nil, 0)
+	//combatEncounterTab := NewCharacterWidget(nil, 0)
 	tabWidget.AddTab(combatEncounterTab, "Combat Encounter")
 
 	// Create just some list tab

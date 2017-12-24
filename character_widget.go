@@ -1,9 +1,8 @@
 package main
 
 import (
-	"github.com/therecipe/qt/widgets"
 	"github.com/therecipe/qt/core"
-	"go/ast"
+	"github.com/therecipe/qt/widgets"
 )
 
 type Character struct {
@@ -17,13 +16,14 @@ type DetailsTableView struct {
 }
 
 type CharacterWidget struct {
-	//core.QAbstractListModel
 	widgets.QWidget
-
-	_ func() `constructor:"init"`
-
 	// Layout of this widget
 	layout *widgets.QHBoxLayout
+
+	_ map[string]*Character `property:"objects"`
+	_ []*Character          `property:"characters"`
+	characters []*Character
+
 
 	// first pane - character names widget
 	characterListWidget *widgets.QListWidget
@@ -34,9 +34,7 @@ type CharacterWidget struct {
 	// third pane - options
 	//??
 
-	_ map[string]*Character `property:"objects"`
-	_ []*Character `property:"characters"`
-	characters []*Character
+	_ func() `constructor:"init"`
 
 }
 
@@ -45,8 +43,6 @@ func (cw *CharacterWidget) init() {
 
 	cw.characterListWidget = widgets.NewQListWidget(nil)
 	cw.detailsWidget = widgets.NewQTableView(nil)
-
-
 
 	// character for tests
 	//details := DetailsTableView{[][]string{
@@ -57,10 +53,12 @@ func (cw *CharacterWidget) init() {
 	//characters := []*Character{}
 
 	// tests
-	cw.ConnectCharacters(func() []*Character {
-		return cw.characters
-	})
+	//cw.ConnectCharacters(func() []*Character {
+	//	return cw.characters
+	//})
 
+	cw.layout.AddWidget(cw.characterListWidget, 0, 0)
+	cw.layout.AddWidget(cw.detailsWidget, 0, 0)
 
 	cw.SetLayout(cw.layout)
 }
@@ -92,6 +90,7 @@ func (cw *CharacterWidget) AddCharacter(name string, stringRows [][]string) {
 
 	cw.characters = append(cw.characters, character)
 
+	cw.characterListWidget.AddItem(name)
 
 	//cw.characterListWidget.AddItem(character.name)
 	//cw.detailsWidget.
